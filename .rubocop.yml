@@ -1,0 +1,27 @@
+AllCops:
+  TargetRubyVersion: 3.0
+  NewCops: enable
+  SuggestExtensions: false
+
+Style/NumericLiterals:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: true
+
+Style/StringLiteralsInInterpolation:
+  Enabled: true
+
+Style/Semicolon:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 100
+  Exclude:
+    - 'wisconsin-benchmark.gemspec'
+
+Metrics:
+  Enabled: false
+
+Naming:
+  Enabled: false
