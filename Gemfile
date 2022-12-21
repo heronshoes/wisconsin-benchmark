@@ -2,11 +2,11 @@
 
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in wisconsin-benchmark.gemspec
 gemspec
 
-gem 'rake', '~> 13.0'
+group :test do
+  gem 'rake'
 
-gem 'test-unit', '~> 3.0'
-
-gem 'rubocop', '~> 1.21'
+  gem 'rubocop'
+  gem 'test-unit'
+end
