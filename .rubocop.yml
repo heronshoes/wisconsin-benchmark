@@ -3,6 +3,9 @@ AllCops:
   NewCops: enable
   SuggestExtensions: false
 
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
 Style/NumericLiterals:
   Enabled: false
 
@@ -13,6 +16,9 @@ Style/StringLiteralsInInterpolation:
   Enabled: true
 
 Style/Semicolon:
+  Enabled: false
+
+Style/TrailingCommaInArguments:
   Enabled: false
 
 Layout/LineLength:

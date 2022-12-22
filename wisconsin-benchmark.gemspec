@@ -33,6 +33,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'red-arrow', '~> 10.0.0'
   spec.add_dependency 'red-arrow-numo-narray'
+  spec.add_dependency 'red-parquet'
 
   # Development dependency has gone to the Gemfile (rubygems/bundler#7237)
 
