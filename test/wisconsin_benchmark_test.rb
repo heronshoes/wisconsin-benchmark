@@ -9,7 +9,7 @@ class WisconsinBenchmarkTest < Test::Unit::TestCase
   end
 
   test 'out of range in array' do
-    assert_raise(RuntimeError) { WisconsinBenchmark::Array.new(100_000_001) }
+    assert_raise(RuntimeError) { WisconsinBenchmark::ArrayGenerator.new(100_000_001) }
   end
 
   sub_test_case 'numeric array' do
@@ -31,7 +31,7 @@ class WisconsinBenchmarkTest < Test::Unit::TestCase
 
     def test_numeric_array(data)
       size, values10 = data
-      array = WisconsinBenchmark::Array.new(size)
+      array = WisconsinBenchmark::ArrayGenerator.new(size)
 
       assert_instance_of Numo::UInt32, array.unique1
       assert_equal values10, array.unique1[0..9].to_a
@@ -145,7 +145,7 @@ class WisconsinBenchmarkTest < Test::Unit::TestCase
 
     def test_string_array(data)
       size, values10 = data
-      array = WisconsinBenchmark::Array.new(size)
+      array = WisconsinBenchmark::ArrayGenerator.new(size)
       min = 'AAAAAAAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 
       assert_instance_of Array, array.stringu1

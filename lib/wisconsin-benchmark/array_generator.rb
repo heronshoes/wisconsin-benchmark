@@ -1,6 +1,6 @@
 module WisconsinBenchmark
   # Array generator
-  class Array
+  class ArrayGenerator
     def initialize(size)
       if    size <= 1000      then @generator = 279;   @prime = 1009
       elsif size <= 10000     then @generator = 2969;  @prime = 10007

@@ -2,7 +2,7 @@
 
 require 'arrow-numo-narray'
 
-require_relative 'wisconsin-benchmark/array'
+require_relative 'wisconsin-benchmark/array_generator'
 require_relative 'wisconsin-benchmark/table'
 require_relative 'wisconsin-benchmark/version'
 

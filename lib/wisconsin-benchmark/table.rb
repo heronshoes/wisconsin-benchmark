@@ -7,7 +7,7 @@ module WisconsinBenchmark
     #
     def initialize(size)
       @size = size
-      @array = WisconsinBenchmark::Array.new(size)
+      @array = WisconsinBenchmark::ArrayGenerator.new(size)
     end
 
     attr_reader :table, :size
