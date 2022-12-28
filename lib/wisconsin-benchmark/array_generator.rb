@@ -14,6 +14,23 @@ module WisconsinBenchmark
       @size = size
     end
 
+    # summary of the object.
+    #
+    # @return [String] return class name, size and value range of each arrays.
+    #
+    def inspect
+      <<~STR
+        <#{self.class} (
+          size=#{@size},
+          unique1=#{inspect_array(@unique1)},
+          unique2=#{inspect_array(@unique2)},
+          stringu1=#{inspect_array(@stringu1)},
+          stringu2=#{inspect_array(@stringu2)},
+          string4=#{inspect_array(@string4)}
+        )>
+      STR
+    end
+
     # Create a random/unique record array
     #   0...size in range
     #
@@ -120,6 +137,15 @@ module WisconsinBenchmark
         break if seed <= @size
       end
       seed
+    end
+
+    def inspect_array(array)
+      if array.nil?
+        'nil'
+      else
+        s, e = array.minmax
+        "#{s}..#{e}"
+      end
     end
   end
 end

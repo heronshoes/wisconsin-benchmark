@@ -168,6 +168,42 @@ class WisconsinBenchmarkTest < Test::Unit::TestCase
     end
   end
 
+  sub_test_case '#inspect' do
+    test 'inspect instance as created' do
+      expected = <<~STR
+        <WisconsinBenchmark::ArrayGenerator (
+          size=100,
+          unique1=nil,
+          unique2=nil,
+          stringu1=nil,
+          stringu2=nil,
+          string4=nil
+        )>
+      STR
+      assert_equal expected, WisconsinBenchmark::ArrayGenerator.new(100).inspect
+    end
+
+    test 'inspect instance generated' do
+      expected = <<~STR
+        <WisconsinBenchmark::ArrayGenerator (
+          size=100,
+          unique1=0..99,
+          unique2=0..99,
+          stringu1=AAAAAAAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..AAAAADVxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx,
+          stringu2=AAAAAAAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..AAAAADVxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx,
+          string4=AAAAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..VVVVxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        )>
+      STR
+      actual = WisconsinBenchmark::ArrayGenerator.new(100)
+      actual.unique1
+      actual.unique2
+      actual.stringu1
+      actual.stringu2
+      actual.string4
+      assert_equal expected, actual.inspect
+    end
+  end
+
   sub_test_case 'table' do
     test 'generate table' do
       table = WisconsinBenchmark::Table.new(20).generate
