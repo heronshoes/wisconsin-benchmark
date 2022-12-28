@@ -56,7 +56,7 @@ class WisconsinBenchmarkTest < Test::Unit::TestCase
         AAAAAAExxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         AAAAAAGxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         AAAAAAAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-      ]],
+      ], 'AAAAAAJxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'],
       '1E2' => [100, %w[
         AAAAACRxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         AAAAAAJxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -68,7 +68,7 @@ class WisconsinBenchmarkTest < Test::Unit::TestCase
         AAAAABJxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         AAAAADVxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         AAAAACGxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-      ]],
+      ], 'AAAAADVxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'],
       '1E3' => [1_000, %w[
         AAAAAFRxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         AAAABJVxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -80,7 +80,7 @@ class WisconsinBenchmarkTest < Test::Unit::TestCase
         AAAAAUXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         AAAAAQJxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         AAAABEUxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-      ]],
+      ], 'AAAABMLxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'],
       '1E4' => [10_000, %w[
         AAAANAMxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         AAAACUTxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -92,7 +92,7 @@ class WisconsinBenchmarkTest < Test::Unit::TestCase
         AAAAJXTxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         AAAAGKFxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         AAAAENBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-      ]],
+      ], 'AAAAOUPxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'],
       '1E5' => [100_000, %w[
         AAABVUBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         AAAANXQxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -104,7 +104,7 @@ class WisconsinBenchmarkTest < Test::Unit::TestCase
         AAADARVxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         AAAAMWPxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         AAABTTCxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-      ]],
+      ], 'AAAFRYDxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'],
       '1E6' => [1_000_000, %w[
         AAAZABKxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         AABYSAPxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -116,7 +116,7 @@ class WisconsinBenchmarkTest < Test::Unit::TestCase
         AAADBDCxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         AABNKMWxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         AAAMJQXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-      ]],
+      ], 'AACEXHNxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'],
       '1E7' => [10_000_000, %w[
         AAACNWIxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         AAUOMJAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -128,7 +128,7 @@ class WisconsinBenchmarkTest < Test::Unit::TestCase
         AAMLMOGxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         AAVCTLBxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         AALBAPUxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-      ]],
+      ], 'AAVWYXJxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'],
       # '1E8' => [100_000_000, %w[
       #   AAAAAQYxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
       #   AAAANSExxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -140,19 +140,20 @@ class WisconsinBenchmarkTest < Test::Unit::TestCase
       #   AGTBDWKxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
       #   AGSQXBAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
       #   AGKJJTYxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-      # ]],
+      # ], 'AIKVOZVxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'],
     )
 
     def test_string_array(data)
-      size, values10 = data
-      array = WisconsinBenchmark::ArrayGenerator.new(size)
+      size, values10, max = data
       min = 'AAAAAAAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+      array = WisconsinBenchmark::ArrayGenerator.new(size)
 
-      assert_instance_of Array, array.stringu1
-      assert_equal values10, array.stringu1[0..9].to_a
-      assert_equal min, array.stringu1.min
+      assert_instance_of Arrow::StringArray, array.stringu1
+      assert_equal values10, array.stringu1.slice(0, 10).to_a
+      assert_equal min, array.stringu1.min.data.to_s
+      assert_equal max, array.stringu1.max.data.to_s
 
-      assert_instance_of Array, array.stringu2
+      assert_instance_of Arrow::StringArray, array.stringu2
       assert_equal array.stringu2.to_a, array.stringu1.sort.to_a
 
       expect = %w[
@@ -162,8 +163,8 @@ class WisconsinBenchmarkTest < Test::Unit::TestCase
         VVVVxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
       ]
       expect = (expect * 3)[0..9]
-      assert_instance_of Array, array.string4
-      assert_equal expect, array.string4[0..9].to_a
+      assert_instance_of Arrow::StringArray, array.string4
+      assert_equal expect, array.string4.slice(0, 10).to_a
     end
   end
 

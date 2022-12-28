@@ -61,10 +61,11 @@ module WisconsinBenchmark
         warn 'Generating stringu1'
 
         trailer = 'x' * 45
-        unique1.to_a.map do |i|
+        a = unique1.to_a.map do |i|
           str = i.to_s(26).tr('0-9a-p', 'A-Z')
           ('A' * (7 - str.size)) << str << trailer
         end
+        Arrow::StringArray.new(a)
       end
     end
 
@@ -83,7 +84,8 @@ module WisconsinBenchmark
         warn 'Generating stringu2'
 
         trailer = 'x' * 45
-        (('A' * 7)..).take(@size).map { _1 << trailer }
+        a = (('A' * 7)..).take(@size).map { _1 << trailer }
+        Arrow::StringArray.new(a)
       end
     end
 
@@ -104,7 +106,8 @@ module WisconsinBenchmark
 
         trailer = 'x' * 48
         array = %w[AAAA HHHH OOOO VVVV].map { _1 << trailer }
-        @size.times.map { |i| array[i % 4] }
+        a = @size.times.map { |i| array[i % 4] }
+        Arrow::StringArray.new(a)
       end
     end
 
