@@ -1,6 +1,6 @@
 module WisconsinBenchmark
   # Arrow::Table generator
-  class Table
+  class TableGenerator
     # Create Scaled Wisconsin Benchmark dataset object.
     #
     # @return size [Integer] number of tuples.

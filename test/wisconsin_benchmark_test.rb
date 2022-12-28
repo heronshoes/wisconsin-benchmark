@@ -205,8 +205,12 @@ class WisconsinBenchmarkTest < Test::Unit::TestCase
   end
 
   sub_test_case 'table' do
+    def setup
+      @table = WisconsinBenchmark::TableGenerator.new(20)
+    end
+
     test 'generate table' do
-      table = WisconsinBenchmark::Table.new(20).generate
+      @table.generate
 
       expect = <<~STR
         \tunique1\tunique2\ttwo\tfour\tten\ttwenty\tonePercent\ttenPercent\ttwentyPercent\tfiftyPercent\tunique3\tevenOnePercent\toddOnePercent\tstringu1\tstringu2\tstring4
@@ -231,7 +235,7 @@ class WisconsinBenchmarkTest < Test::Unit::TestCase
         18\t      6\t     18\t  0\t   2\t  6\t     6\t         6\t         6\t            1\t           0\t      6\t            12\t           13\tAAAAAAGxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\tAAAAAASxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\tOOOOxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         19\t      0\t     19\t  0\t   0\t  0\t     0\t         0\t         0\t            0\t           0\t      0\t             0\t            1\tAAAAAAAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\tAAAAAATxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\tVVVVxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
       STR
-      assert_equal expect, table.to_s
+      assert_equal expect, @table.table.to_s
     end
   end
 end
