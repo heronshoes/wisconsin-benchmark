@@ -10,22 +10,25 @@ module WisconsinBenchmark
       @array = WisconsinBenchmark::ArrayGenerator.new(size)
     end
 
-    attr_reader :table, :size
+    attr_reader :table, :size, :array
 
     # Generate Scaled Wisconsin Benchmark dataset in Arrow::Table.
     #
     # @return [Arrow::Table] generated dataset in Arrow::Table.
     #
     def generate
+      unique1 = @array.unique1
+      onePercent = unique1 % 100
+
       @table = Arrow::Table.new(
         [
-          [:unique1,        unique1 = @array.unique1],
+          [:unique1,        unique1],
           [:unique2,        @array.unique2],
           [:two,            unique1 % 2],
           [:four,           unique1 % 4],
           [:ten,            unique1 % 10],
           [:twenty,         unique1 % 20],
-          [:onePercent,     onePercent = unique1 % 100],
+          [:onePercent,     onePercent],
           [:tenPercent,     unique1 % 10],
           [:twentyPercent,  unique1 % 5],
           [:fiftyPercent,   unique1 % 2],
