@@ -41,5 +41,9 @@ module WisconsinBenchmark
         ]
       )
     end
+
+    def inspect
+      "<#{self.class} (size=#{@size}, table=#{@table ? '#<Arrow::Table>' : 'nil'})>"
+    end
   end
 end

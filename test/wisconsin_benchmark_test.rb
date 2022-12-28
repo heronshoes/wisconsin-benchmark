@@ -209,6 +209,11 @@ class WisconsinBenchmarkTest < Test::Unit::TestCase
       @table = WisconsinBenchmark::TableGenerator.new(20)
     end
 
+    test '#inspect as created' do
+      expected = '<WisconsinBenchmark::TableGenerator (size=20, table=nil)>'
+      assert_equal expected, @table.inspect
+    end
+
     test 'generate table' do
       @table.generate
 
@@ -236,6 +241,12 @@ class WisconsinBenchmarkTest < Test::Unit::TestCase
         19\t      0\t     19\t  0\t   0\t  0\t     0\t         0\t         0\t            0\t           0\t      0\t             0\t            1\tAAAAAAAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\tAAAAAATxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\tVVVVxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
       STR
       assert_equal expect, @table.table.to_s
+    end
+
+    test '#inspect generated' do
+      @table.generate
+      expected = '<WisconsinBenchmark::TableGenerator (size=20, table=#<Arrow::Table>)>'
+      assert_equal expected, @table.inspect
     end
   end
 end
