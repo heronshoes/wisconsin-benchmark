@@ -6,7 +6,7 @@ gemspec
 
 group :test do
   gem 'rake'
-
+  gem 'red_amber'
   gem 'rubocop'
   gem 'test-unit'
 end
