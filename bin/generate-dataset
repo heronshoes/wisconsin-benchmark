@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'bundler/setup'
+require 'wisconsin-benchmark'
+
+dataset_size = (ARGV.shift || 1_000).to_f.to_i # must be <= 100_000_000
+
+if dataset_size > 1_000_000
+  warn "It may take a long time to create datasets for n=#{dataset_size}\n" \
+       'Is it OK to go? (y/N)'
+  input_str = gets.chomp.downcase
+  exit unless input_str == 'y'
+end
+
+wb = WisconsinBenchmark::TableGenerator.new(dataset_size)
+wb.generate
+table = wb.table
+
+file_stem = format('%.0e', dataset_size).upcase.gsub(/\+0/, '')
+
+path = 'datasets'
+Dir.mkdir(path) unless File.exist?(path)
+[
+  "#{path}/WB_#{file_stem}.arrow",
+  "#{path}/WB_#{file_stem}.csv",
+  "#{path}/WB_#{file_stem}.parquet",
+]
+  .each do |file|
+    if File.exist?(file)
+      warn "#{file} already exists. Overwrite? (y/N)"
+      input_str = gets.chomp.downcase
+      next unless input_str == 'y'
+    end
+    warn "saving #{file}"
+    table.save(file)
+  end

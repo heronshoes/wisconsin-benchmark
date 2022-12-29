@@ -37,7 +37,7 @@ module WisconsinBenchmark
           [:oddOnePercent,  (onePercent * 2) + 1],
           [:stringu1,       @array.stringu1],
           [:stringu2,       @array.stringu2],
-          [:string4,        @array.string4]
+          [:string4,        @array.string4],
         ]
       )
     end
