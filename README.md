@@ -1,6 +1,8 @@
 # Wisconsin Benchmark
 
-[Wisconsin Benchmark](http://jimgray.azurewebsites.net/benchmarkhandbook/chapter4.pdf) is a benchmark for relational database systems and machines developed at University of Wisconsin. It was used to asses early relational data system performance, but it will be useful for the capability of DataFrame and its scalability because it is well designed synthetic dataset.
+[Wisconsin Benchmark](http://jimgray.azurewebsites.net/benchmarkhandbook/chapter4.pdf) is a benchmark for relational database systems and machines developed at University of Wisconsin. It was used to asses early relational data system performance, but I think it will be useful to measure the capability of DataFrame and its scalability because it is well designed synthetic dataset.
+
+The Scalable Wisconsin Benchmark Dataset has the following structure: Attribute and Tuple are words used in database systems, corresponding to column name and row (or record) in the data frame, respectively.
 
 ### Table: Attribute Specification of "Scalable" Wisconsin Benchmark
 
@@ -19,15 +21,15 @@
 |unique3       |0-(MAXTUPLES-1)| random|unique1|
 |evenOnePercent |0,2,4,...,198| random |(onePercent * 2)|
 |oddOnePercent |1,3,5,...,199| random |(onePercent * 2)+1|
-|stringu1      | - |random |_unique, random order, 52bytes each_|
-|stringu2      | - |_sequential_|_unique, sequential, 52bytes each_|
-|string4       | - |cyclic|4 _unique string, 52bytes each_|
+|stringu1      | _(string from unique1)_ |random |_unique, random order, 52bytes each_|
+|stringu2      | _(string from unique2)_ |_sequential_|_unique, sequential, 52bytes each_|
+|string4       | _(string)_ |cyclic|4 _unique string, 52bytes each_|
 
-(This table is taken from Table 2 in [Wisconsin Benchmark](http://jimgray.azurewebsites.net/benchmarkhandbook/chapter4.pdf) and _italic_ letters are added to describe in detail.)
+(This table is taken from Table 2 in [Wisconsin Benchmark](http://jimgray.azurewebsites.net/benchmarkhandbook/chapter4.pdf). I added _italic_ letters to describe in detail.)
 
 ### Benchmark dataset
 
-This project will offer the 'Scaled Wisconsin Benchmark Dataset' in arrow, parquet and csv for 1,000 to 100,000,000 rows.
+This project will provide a generator of "Scaled Wisconsin Benchmark Dataset" and generated table in arrow, parquet, and csv with records ranging from 100 rows to 10,000 rows in 10x increments. The Dataset Generator is able to generate up to 100_000_000 rows if memory is sufficiently supplied. 
 
 ### Benchmark suites for DataFrames
 
@@ -45,14 +47,17 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
-To experiment with that code, run `bin/console` for an interactive prompt.
+To start the Dataset Generator run;
 
-```ruby
-require 'wisconsin-benchmark' # if it is not in `bin/console`
-
-table = WisconsinBenchmark::Table.new(1000).generate
-
+```shell
+generate-dataset (dataset_size)
 ```
+
+Here we can specify dataset_size (number of rows). Default size is 1,000.
+Then generator will create .arrow, .csv, .parquet files in specified size. Filename will be like 'WB_1E3.arrow'.
+Generated Datasets are stored in `datasets` directory.
+
+To experiment with the code, run `bin/console` for an interactive prompt.
 
 ## Development
 
