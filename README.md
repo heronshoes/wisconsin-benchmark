@@ -29,7 +29,7 @@ The Scalable Wisconsin Benchmark Dataset has the following structure: Attribute 
 
 ### Benchmark dataset
 
-This project will provide a generator of "Scaled Wisconsin Benchmark Dataset" and generated table in arrow, parquet, and csv with records ranging from 100 rows to 10,000 rows in 10x increments. The Dataset Generator is able to generate up to 100_000_000 rows if memory is sufficiently supplied. 
+This project will provide a generator of "Scaled Wisconsin Benchmark Dataset" and [generated table in arrow, parquet, and csv with records ranging from 100 rows to 10,000 rows in 10x increments](https://github.com/heronshoes/wisconsin-benchmark/tree/main/datasets). The Dataset Generator is able to generate up to 100_000_000 rows if memory is sufficiently supplied. 
 
 ### Benchmark suites for DataFrames
 
