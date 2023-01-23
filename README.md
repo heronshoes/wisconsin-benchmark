@@ -37,6 +37,12 @@ Coming soon.
 
 ## Installation
 
+Install Apache Arrow, Arrow GLib and Parquet GLib. See [Apache Arrow install document](https://arrow.apache.org/install/).
+
+- Apache Arrow
+- Apache Arrow GLib
+- Apache Parquet GLib
+
 Install the gem and add to the application's Gemfile by executing:
 
     $ bundle add wisconsin-benchmark
